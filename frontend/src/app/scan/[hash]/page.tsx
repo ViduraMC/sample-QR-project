@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { eventsApi } from "@/lib/api";
 import Link from "next/link";
+import CalendarButton from "@/components/CalendarButton";
 
 export default async function ScanPage({ 
   params,
@@ -108,6 +109,8 @@ export default async function ScanPage({
               </div>
             </div>
           </div>
+
+          <CalendarButton event={event} />
         </div>
       </div>
     </div>
