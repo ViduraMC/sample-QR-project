@@ -98,7 +98,7 @@ export default function EventCard({ event }: EventCardProps) {
             </div>
             <button 
               onClick={handleDownloadQR} 
-              className="btn btn-secondary w-full mt-4"
+              className="btn btn-secondary w-full mt-4 mb-2"
             >
               ↓ Download High-Res QR
             </button>
@@ -119,6 +119,9 @@ export default function EventCard({ event }: EventCardProps) {
             {isDeleting ? "Deleting..." : "Delete"}
           </button>
         </div>
+        <Link href={`/events/${event.id}/qr`} className="btn btn-primary w-full text-center mt-1">
+          Generate QR 🔗
+        </Link>
       </div>
     </div>
   );
