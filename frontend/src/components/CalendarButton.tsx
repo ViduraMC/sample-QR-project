@@ -4,7 +4,7 @@ import { createEvent, EventAttributes } from "ics";
 import { EventResponse } from "@/lib/api";
 
 export default function CalendarButton({ event }: { event: EventResponse }) {
-  const handleDownload = () => {
+  const handleDownloadIcs = () => {
     const d = new Date(event.dateTime);
     
     // ics expects [YYYY, MM, DD, HH, MM]
@@ -45,9 +45,44 @@ export default function CalendarButton({ event }: { event: EventResponse }) {
     });
   };
 
+  const handleGoogleCalendar = () => {
+    const start = new Date(event.dateTime);
+    const end = new Date(start.getTime() + 2 * 60 * 60 * 1000); // Assume 2 hour duration
+
+    const formatGoogleDate = (date: Date) => {
+      return date.toISOString().replace(/-|:|\.\d\d\d/g, "");
+    };
+
+    const googleUrl = new URL("https://calendar.google.com/calendar/render");
+    googleUrl.searchParams.append("action", "TEMPLATE");
+    googleUrl.searchParams.append("text", event.title);
+    googleUrl.searchParams.append("dates", `${formatGoogleDate(start)}/${formatGoogleDate(end)}`);
+    if (event.description) googleUrl.searchParams.append("details", event.description);
+    if (event.location) googleUrl.searchParams.append("location", event.location);
+
+    window.open(googleUrl.toString(), "_blank");
+  };
+
   return (
-    <button onClick={handleDownload} className="btn btn-primary w-full mt-4 flex justify-center items-center gap-2">
-      <span className="text-xl">📅</span> Add to Calendar
-    </button>
+    <div className="flex flex-col gap-3 mt-6 pt-6 border-t border-white/10">
+      <h3 className="text-center text-sm uppercase tracking-wider text-muted mb-2">Add to Calendar</h3>
+      <div className="grid grid-cols-2 gap-3">
+        <button 
+          onClick={handleGoogleCalendar} 
+          className="btn flex flex-col justify-center items-center gap-1 p-3"
+          style={{ background: 'rgba(66, 133, 244, 0.15)', border: '1px solid #4285F4', color: '#fff' }}
+        >
+          <span className="text-2xl mb-1">G</span> 
+          <span className="text-xs">Google</span>
+        </button>
+        <button 
+          onClick={handleDownloadIcs} 
+          className="btn btn-secondary flex flex-col justify-center items-center gap-1 p-3"
+        >
+          <span className="text-2xl mb-1">📅</span> 
+          <span className="text-xs">Apple / Outlook</span>
+        </button>
+      </div>
+    </div>
   );
 }
