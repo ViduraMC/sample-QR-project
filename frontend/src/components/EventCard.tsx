@@ -92,12 +92,15 @@ export default function EventCard({ event }: EventCardProps) {
         </div>
 
         {qrSrc && (
-          <div className="flex flex-col items-center justify-center mb-6">
-            <div className="bg-white p-3 rounded-xl shadow-md mb-3">
-              <img src={qrSrc} alt={`QR Code for ${event.title}`} width={200} height={200} />
+          <div className="flex flex-col items-center justify-center mb-6 w-full">
+            <div className="bg-white p-3 rounded-xl shadow-md w-fit">
+              <img src={qrSrc} alt={`QR Code for ${event.title}`} width={200} height={200} className="block" />
             </div>
-            <button onClick={handleDownloadQR} className="text-sm font-semibold text-primary hover:text-white transition-colors">
-              ↓ Download QR
+            <button 
+              onClick={handleDownloadQR} 
+              className="mt-4 px-4 py-2 bg-primary/20 text-primary hover:bg-primary hover:text-white rounded-lg text-sm font-semibold transition-colors w-full"
+            >
+              ↓ Download High-Res QR
             </button>
           </div>
         )}
