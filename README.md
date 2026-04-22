@@ -15,6 +15,7 @@ This project was built to explore and implement modern web dev architectures, sp
 | **Database** | **Neon PostgreSQL** | Traditional databases require paying for 24/7 idle servers. Neon scales to zero when nobody is using it, saving significant costs, and boots up instantly over standard HTTPS. |
 | **ORM** | **Prisma 7** | We avoid writing raw SQL strings (`SELECT *...`) because they are vulnerable to typos and injection attacks. Prisma translates TypeScript logic into safe SQL, and using Prisma 7's lightweight `adapter-pg` driver guarantees seamless connection to Neon. |
 | **Styling** | **Vanilla CSS** (`globals.css`) | We achieved custom "Glassmorphism" patterns without Tailwind bloat, ensuring absolute control over gradients, blurring, and modern UI. |
+| **Calendar Sync** | **`ics` & Google API** | Natively parses event dates directly in the browser to download RFC-compliant `.ics` files for Apple/Outlook, or dynamically constructs Google Calendar URL templates for one-click importing without backend file storage bloat. |
 
 ---
 
