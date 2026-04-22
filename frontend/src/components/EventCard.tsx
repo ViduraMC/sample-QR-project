@@ -22,7 +22,7 @@ export default function EventCard({ event }: EventCardProps) {
     const scanUrl = `${baseUrl}/scan/${event.qrHash}?sig=${event.signature}`;
 
     QRCode.toDataURL(scanUrl, {
-      width: 150,
+      width: 300,
       margin: 1,
       color: {
         dark: "#8b5cf6",
@@ -32,6 +32,16 @@ export default function EventCard({ event }: EventCardProps) {
       .then((url) => setQrSrc(url))
       .catch((err) => console.error(err));
   }, [event]);
+
+  const handleDownloadQR = () => {
+    if (!qrSrc) return;
+    const link = document.createElement("a");
+    link.href = qrSrc;
+    link.download = `event-qr-${event.title.replace(/\s+/g, '-').toLowerCase()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this event?")) return;
@@ -82,10 +92,13 @@ export default function EventCard({ event }: EventCardProps) {
         </div>
 
         {qrSrc && (
-          <div className="flex justify-center mb-6">
-            <div className="bg-white p-2 rounded-lg shadow-md">
-              <img src={qrSrc} alt={`QR Code for ${event.title}`} width={120} height={120} />
+          <div className="flex flex-col items-center justify-center mb-6">
+            <div className="bg-white p-3 rounded-xl shadow-md mb-3">
+              <img src={qrSrc} alt={`QR Code for ${event.title}`} width={200} height={200} />
             </div>
+            <button onClick={handleDownloadQR} className="text-sm font-semibold text-primary hover:text-white transition-colors">
+              ↓ Download QR
+            </button>
           </div>
         )}
       </div>
