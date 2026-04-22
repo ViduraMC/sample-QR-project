@@ -98,7 +98,7 @@ export default function EventCard({ event }: EventCardProps) {
             </div>
             <button 
               onClick={handleDownloadQR} 
-              className="mt-4 px-4 py-2 bg-primary/20 text-primary hover:bg-primary hover:text-white rounded-lg text-sm font-semibold transition-colors w-full"
+              className="btn btn-secondary w-full mt-4"
             >
               ↓ Download High-Res QR
             </button>
