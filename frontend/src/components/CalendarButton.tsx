@@ -23,7 +23,7 @@ export default function CalendarButton({ event }: { event: EventResponse }) {
       description: event.description,
       location: event.location,
       status: "CONFIRMED",
-      organizer: { name: event.organizer },
+      organizer: { name: event.organizer, email: "hello@event.com" },
     };
 
     createEvent(icsEvent, (error, value) => {
