@@ -66,7 +66,7 @@ Ensure you have `Node.js 20+` and `npm` installed.
 ### 2. Configure Environment Configurations
 Navigate into the `backend/` directory, open `.env.example`, make a copy named `.env`, and assign your variables:
 ```env
-DATABASE_URL="postgresql://neondb_owner:npg_wYHcG1Euoq0b@ep-young-surf-aof403ag-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=verify-full&channel_binding=require"
+DATABASE_URL="postgresql://user:password@localhost:5432/event_db?schema=public"
 PORT=4000
 QR_HMAC_SECRET="your_custom_secret_key"
 FRONTEND_URL="http://localhost:3000"
