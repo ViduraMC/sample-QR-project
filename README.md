@@ -1,4 +1,4 @@
-# QR Event Management Platform 🎫📲
+# QR Event Management Platform 
 
 A full-stack, enterprise-grade event management platform designed to allow event organizers to create tracking pages, generate securely encrypted QR codes, and quickly serve public-facing event details smoothly out to physical attendees.
 
