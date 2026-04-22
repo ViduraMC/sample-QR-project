@@ -1,11 +1,32 @@
+"use client";
+
 import Link from "next/link";
-import { EventResponse } from "@/lib/api";
+import { useRouter } from "next/navigation";
+import { eventsApi, EventResponse } from "@/lib/api";
+import { useState } from "react";
 
 interface EventCardProps {
   event: EventResponse;
 }
 
 export default function EventCard({ event }: EventCardProps) {
+  const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete this event?")) return;
+    
+    setIsDeleting(true);
+    try {
+      await eventsApi.delete(event.id);
+      router.refresh(); // Refresh the server component to pull updated list
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete event.");
+      setIsDeleting(false);
+    }
+  };
+
   const date = new Date(event.dateTime).toLocaleString(undefined, {
     dateStyle: "medium",
     timeStyle: "short",
@@ -42,9 +63,18 @@ export default function EventCard({ event }: EventCardProps) {
       </div>
 
       <div className="flex flex-col gap-2 mt-auto">
-        <Link href={`/events/${event.id}`} className="btn btn-secondary w-full text-center">
-          View / Edit
-        </Link>
+        <div className="flex gap-2">
+          <Link href={`/events/${event.id}`} className="btn btn-secondary w-full text-center">
+            View / Edit
+          </Link>
+          <button 
+            onClick={handleDelete} 
+            disabled={isDeleting}
+            className="btn btn-danger w-full"
+          >
+            {isDeleting ? "Deleting..." : "Delete"}
+          </button>
+        </div>
         <Link href={`/events/${event.id}/qr`} className="btn btn-primary w-full text-center">
           Generate QR 🔗
         </Link>
