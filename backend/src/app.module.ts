@@ -17,7 +17,7 @@ import { EventsModule } from './events/events.module';
       {
         name: 'default',
         ttl: seconds(60),
-        limit: 100,
+        limit: 50,
       },
     ]),
 
@@ -32,4 +32,4 @@ import { EventsModule } from './events/events.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
